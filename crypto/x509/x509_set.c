@@ -268,6 +268,12 @@ static int x509_sig_info_init(X509_SIG_INFO *siginf, const X509_ALGOR *alg,
          */
         siginf->secbits = 105;
         break;
+    case NID_id_GostR3411_2012_256:
+        siginf->secbits = 128;
+        break;
+    case NID_id_GostR3411_2012_512:
+        siginf->secbits = 256;
+        break;
     default:
         /* Security bits: half number of bits in digest */
         {

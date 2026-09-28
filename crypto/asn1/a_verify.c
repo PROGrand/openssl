@@ -164,7 +164,9 @@ static int item_verify(const ASN1_ITEM *it, const X509_ALGOR *alg,
             }
 
             if (mdnid != NID_undef) {
-                type = EVP_MD_fetch(libctx, OBJ_nid2sn(mdnid), propq);
+                if ((type = EVP_get_digestbynid(mdnid)) == NULL) {
+                    type = EVP_MD_fetch(libctx, OBJ_nid2sn(mdnid), propq);
+                }
                 if (type == NULL) {
                     ERR_raise_data(ERR_LIB_ASN1,
                         ASN1_R_UNKNOWN_MESSAGE_DIGEST_ALGORITHM,
